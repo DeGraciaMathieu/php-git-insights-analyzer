@@ -48,9 +48,14 @@ $ php php-git-insights-analyzer app:report
 
 Understanding analysis :
 
-- Commits (Comm.): Number of file commits.
-- Contributors (Cont.): Number of distinct contributors.
-- Average Commit Size (ACS): Average size of file commits.
-- Average Commit Size Ratio (ACSR): Percentage of the average commit size relative to the total line size of the file.
-- Workload Per Contributor (WPC): Average size of a contributor's commits.
-- Workload Per Contributor Ratio (WPRC): Percentage of the average contributor commit size relative to the total line size of the file.
+| Abbreviation | Metric                         | Description                                                                    |
+| ------------ | ------------------------------ | ------------------------------------------------------------------------------ |
+| Comm.        | Commits                        | Number of file commits.                                                        |
+| Cont.        | Contributors                   | Number of distinct contributors.                                               |
+| ACS          | Average Commit Size            | Average size of file commits.                                                  |
+| ACSR         | Average Commit Size Ratio      | Proportion of average commit size compared to the total file size.             |
+| WPC          | Workload Per Contributor       | Average size of a contributor's commits.                                       |
+| WPRC         | Workload Per Contributor Ratio | Proportion of average contributor commit size compared to the total file size. |
+
+
+

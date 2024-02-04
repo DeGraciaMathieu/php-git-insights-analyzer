@@ -27,6 +27,7 @@ class LoadCliOutput implements LoadOutputInterface
 
         info('You can run the app:report command to display the analysis.');
     }
+    
     public function error(Throwable $throwable): void
     {
         error($throwable->getMessage());

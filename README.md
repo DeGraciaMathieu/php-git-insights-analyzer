@@ -1,40 +1,56 @@
-<a href="https://supportukrainenow.org/"><img src="https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct.svg" width="100%"></a>
-
-------
-
 <p align="center">
-    <img title="Laravel Zero" height="100" src="https://raw.githubusercontent.com/laravel-zero/docs/master/images/logo/laravel-zero-readme.png" />
+<img src="https://github.com/DeGraciaMathieu/php-smelly-code-detector/blob/master/arts/robot.png" width="250">
 </p>
 
-<p align="center">
-  <a href="https://github.com/laravel-zero/framework/actions"><img src="https://github.com/laravel-zero/laravel-zero/actions/workflows/tests.yml/badge.svg" alt="Build Status"></img></a>
-  <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://img.shields.io/packagist/dt/laravel-zero/framework.svg" alt="Total Downloads"></a>
-  <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://img.shields.io/packagist/v/laravel-zero/framework.svg?label=stable" alt="Latest Stable Version"></a>
-  <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://img.shields.io/packagist/l/laravel-zero/framework.svg" alt="License"></a>
-</p>
+# php-git-insights-analyzer
 
-<h4> <center>This is a <bold>community project</bold> and not an official Laravel one </center></h4>
+> [!IMPORTANT]  
+> This package is currently under development and is an attempt to apply Clean Architecture. Some of its analyses are still experimental.
 
-Laravel Zero was created by [Nuno Maduro](https://github.com/nunomaduro) and [Owen Voke](https://github.com/owenvoke), and is a micro-framework that provides an elegant starting point for your console application. It is an **unofficial** and customized version of Laravel optimized for building command-line applications.
+## Usage
 
-- Built on top of the [Laravel](https://laravel.com) components.
-- Optional installation of Laravel [Eloquent](https://laravel-zero.com/docs/database/), Laravel [Logging](https://laravel-zero.com/docs/logging/) and many others.
-- Supports interactive [menus](https://laravel-zero.com/docs/build-interactive-menus/) and [desktop notifications](https://laravel-zero.com/docs/send-desktop-notifications/) on Linux, Windows & MacOS.
-- Ships with a [Scheduler](https://laravel-zero.com/docs/task-scheduling/) and  a [Standalone Compiler](https://laravel-zero.com/docs/build-a-standalone-application/).
-- Integration with [Collision](https://github.com/nunomaduro/collision) - Beautiful error reporting
+First, you need to load the data required for the analysis :
 
-------
+```
+php php-git-insights-analyzer app:load
+```
 
-## Documentation
+Package uses git commands to retrieve files history, which is relatively time-consuming, so it was more efficient to create a database before carrying out the analyses.
 
-For full documentation, visit [laravel-zero.com](https://laravel-zero.com/).
+> database is stored in the file storage/analyse.json
 
-## Support the development
-**Do you like this project? Support it by donating**
+Then analyse the data using the following command :
 
-- PayPal: [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66BYDWAT92N6L)
-- Patreon: [Donate](https://www.patreon.com/nunomaduro)
+```
+php php-git-insights-analyzer app:report
+```
 
-## License
+```
+$ php php-git-insights-analyzer app:report
 
-Laravel Zero is an open-source software licensed under the MIT license.
+ ❀ PHP Git Insights Analyzer ❀
+
+ ┌─────────────────────────────────────────────┬───────┬───────┬───────┬─────┬──────┬─────┬──────┐
+ │ name                                        │ lines │ comm. │ cont. │ acs │ acsr │ wpc │ wpcr │
+ ├─────────────────────────────────────────────┼───────┼───────┼───────┼─────┼──────┼─────┼──────┤
+ │ Actions/GameAndRandomClipsSample.php        │ 55    │ 2     │ 1     │ 27  │ 49   │ 55  │ 100  │
+ │ Console/Kernel.php                          │ 27    │ 1     │ 1     │ 27  │ 100  │ 27  │ 100  │
+ │ Dtos/Uuid.php                               │ 37    │ 3     │ 1     │ 12  │ 32   │ 37  │ 100  │
+ │ Enums/AutoplayEnum.php                      │ 9     │ 1     │ 1     │ 9   │ 100  │ 9   │ 100  │
+ │ Enums/ClipStateEnum.php                     │ 15    │ 2     │ 1     │ 7   │ 46   │ 15  │ 100  │
+ │ Exceptions/AssertException.php              │ 10    │ 1     │ 1     │ 10  │ 100  │ 10  │ 100  │
+ │ Exceptions/Handler.php                      │ 35    │ 4     │ 1     │ 8   │ 22   │ 35  │ 100  │
+ │ Http/Controllers/Controller.php             │ 12    │ 1     │ 1     │ 12  │ 100  │ 12  │ 100  │
+ │ Http/Controllers/HomeController.php         │ 37    │ 9     │ 2     │ 4   │ 10   │ 18  │ 48   │
+ │ Http/Controllers/PaginateClipController.php │ 48    │ 8     │ 2     │ 6   │ 12   │ 24  │ 50   │
+ └─────────────────────────────────────────────┴───────┴───────┴───────┴─────┴──────┴─────┴──────┘
+```
+
+Understanding analysis :
+
+- Commits (Comm.): Number of file commits.
+- Contributors (Cont.): Number of distinct contributors.
+- Average Commit Size (ACS): Average size of file commits.
+- Average Commit Size Ratio (ACSR): Percentage of the average commit size relative to the total line size of the file.
+- Workload Per Contributor (WPC): Average size of a contributor's commits.
+- Workload Per Contributor Ratio (WPRC): Percentage of the average contributor commit size relative to the total line size of the file.

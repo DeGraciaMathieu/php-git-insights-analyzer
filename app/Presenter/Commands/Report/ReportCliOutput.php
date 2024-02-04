@@ -57,13 +57,13 @@ class ReportCliOutput implements ReportOutputInterface
         table(
             [
                 'name',
-                'totalLines',
-                'totalCommits',
-                'totalContributors',
-                'averageCommitSize',
-                'averageCommitSizeRatio',
-                'workloadPerContributor',
-                'workloadPerContributorRatio',
+                'lines',
+                'comm.',
+                'cont.',
+                'acs',
+                'acsr',
+                'wpc',
+                'wpcr',
             ],
             $rows,
         );

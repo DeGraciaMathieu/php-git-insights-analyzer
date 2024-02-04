@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Presenter\Commands;
+namespace App\Presenter\Commands\Load;
 
-use function Termwind\{render};
 use App\Application\Load\LoadHandler;
 use App\Application\Load\LoadRequest;
-use App\Presenter\Commands\LoadCliResponse;
-use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
+use App\Presenter\Commands\Load\LoadCliOutput;
+use App\Presenter\Commands\Load\LoadCliRequest;
+use App\Presenter\Commands\Load\LoadCliResponse;
 
-class Load extends Command
+class LoadCommand extends Command
 {
     /**
      * The signature of the command.
@@ -31,18 +31,10 @@ class Load extends Command
     public function handle(LoadHandler $loadHandler): void
     {
         $loadHandler->handle(
-            new LoadRequest(
+            new LoadCliRequest(
                 path: $this->argument('path'),
             ),
-            new LoadCliResponse(),
+            new LoadCliOutput(),
         );
-    }
-
-    /**
-     * Define the command's schedule.
-     */
-    public function schedule(Schedule $schedule): void
-    {
-        // $schedule->command(static::class)->everyMinute();
     }
 }

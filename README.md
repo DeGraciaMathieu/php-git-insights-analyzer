@@ -17,7 +17,7 @@ php php-git-insights-analyzer app:load
 
 Package uses git commands to retrieve files history, which is relatively time-consuming, so it was more efficient to create a database before carrying out the analyses.
 
-> database is stored in the file storage/analyse.json
+> For information, database is stored in the storage/analyse.json
 
 Then analyse the data using the following command :
 

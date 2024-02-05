@@ -5,7 +5,6 @@ namespace App\Presenter\Commands\Report;
 use Throwable;
 use function Laravel\Prompts\note;
 use Illuminate\Support\Collection;
-use App\Domain\Entities\ReportLine;
 use function Laravel\Prompts\error;
 use function Laravel\Prompts\table;
 use App\Domain\Aggregators\ReportAggregator;
@@ -14,6 +13,7 @@ use App\Application\Report\ReportOutputInterface;
 class ReportCliOutput implements ReportOutputInterface
 {
     public function __construct(
+        private string|null $folder,
         private int $limit,
         private string $sort,
     ) {}
@@ -45,7 +45,18 @@ class ReportCliOutput implements ReportOutputInterface
 
     private function cut(Collection $rows): Collection
     {
+        if ($this->folder) {
+            $rows = $this->cuttingFolder($rows);
+        }
+
         return $rows->take($this->limit);
+    }
+
+    private function cuttingFolder(Collection $rows): Collection
+    {
+        return $rows->filter(function ($row) {
+            return str_starts_with($row['name'], $this->folder);
+        });
     }
 
     private function display(Collection $rows): void

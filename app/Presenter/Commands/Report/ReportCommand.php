@@ -15,6 +15,7 @@ class ReportCommand extends Command
      * @var string
      */
     protected $signature = 'app:report 
+        {--folder=} 
         {--limit=10} 
         {--sort=totalCommits}
     ';
@@ -34,6 +35,7 @@ class ReportCommand extends Command
         $reportHandler->handle(
             new ReportCliRequest(),
             new ReportCliOutput(
+                folder: $this->option('folder'),
                 limit: $this->option('limit'),
                 sort: $this->getSortingKey(),
             ),

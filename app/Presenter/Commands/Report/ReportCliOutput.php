@@ -33,6 +33,7 @@ class ReportCliOutput implements ReportOutputInterface
 
         $this->display($rows);
     }
+    
     public function error(Throwable $throwable): void
     {
         error($throwable->getMessage());

@@ -14,7 +14,10 @@ class ReportCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:report';
+    protected $signature = 'app:report 
+        {--limit=10} 
+        {--sort=totalCommits}
+    ';
 
     /**
      * The description of the command.
@@ -31,8 +34,25 @@ class ReportCommand extends Command
         $reportHandler->handle(
             new ReportCliRequest(),
             new ReportCliOutput(
-                limit: 10,
+                limit: $this->option('limit'),
+                sort: $this->getSortingKey(),
             ),
         );
+    }
+
+    private function getSortingKey(): string
+    {
+        $sort = $this->option('sort');
+
+        return match ($sort) {
+            'lines' => 'totalLines',
+            'commits' => 'totalCommits',
+            'contributors' => 'totalContributors',
+            'acs' => 'averageCommitSize',
+            'acsr' => 'averageCommitSizeRatio',
+            'wpc' => 'workloadPerContributor',
+            'wpcr' => 'workloadPerContributorRatio',
+            default => 'totalCommits',
+        };
     }
 }

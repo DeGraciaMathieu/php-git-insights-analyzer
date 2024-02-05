@@ -16,8 +16,10 @@ class ReportAggregator
         $this->reportLines[] = $reportLine;
     }
 
-    public function get()
+    public function toArray(): array
     {
-        return $this->reportLines;
+        return array_map(function (ReportLine $reportLine) {
+            return $reportLine->toArray();
+        }, $this->reportLines);
     }
 }

@@ -50,12 +50,17 @@ Understanding analysis :
 
 | Abbreviation | Metric                         | Description                                                                    |
 | ------------ | ------------------------------ | ------------------------------------------------------------------------------ |
-| Comm.        | Commits                        | Number of file commits.                                                        |
-| Cont.        | Contributors                   | Number of distinct contributors.                                               |
-| ACS          | Average Commit Size            | Average size of file commits.                                                  |
-| ACSR         | Average Commit Size Ratio      | Proportion of average commit size compared to the total file size.             |
-| WPC          | Workload Per Contributor       | Average size of a contributor's commits.                                       |
-| WPRC         | Workload Per Contributor Ratio | Proportion of average contributor commit size compared to the total file size. |
+| comm.        | Commits                        | Number of file commits.                                                        |
+| cont.        | Contributors                   | Number of distinct contributors.                                               |
+| acs          | Average Commit Size            | Average size of file commits.                                                  |
+| acsr         | Average Commit Size Ratio      | Proportion of average commit size compared to the total file size.             |
+| wpc          | Workload Per Contributor       | Average size of a contributor's commits.                                       |
+| wpcr         | Workload Per Contributor Ratio | Proportion of average contributor commit size compared to the total file size. |
 
+## Options
 
-
+| Options               | Description |
+|-----------------------|-------------|
+| --folder=             | Filter results by folder (e.g., --folder=Http/Controllers).|
+| --limit=              | Specify the maximum number of results to display (default is 10).|
+| --sort=smell          | Set the sort order (lines, commits, contributors, acs, acsr, wpc, wpcr; default is commits).|

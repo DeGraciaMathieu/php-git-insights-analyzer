@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presenter\Commands\Report;
+namespace App\Presenter\Commands\Report\Cli;
 
 use Throwable;
 use function Laravel\Prompts\note;
@@ -9,13 +9,12 @@ use function Laravel\Prompts\error;
 use function Laravel\Prompts\table;
 use App\Domain\Aggregators\ReportAggregator;
 use App\Application\Report\ReportOutputInterface;
+use App\Presenter\Commands\Report\Cli\ReportClipOutputOptions;
 
 class ReportCliOutput implements ReportOutputInterface
 {
     public function __construct(
-        private string|null $folder,
-        private int $limit,
-        private string $sort,
+        private ReportClipOutputOptions $options,
     ) {}
 
     public function hello(): void
@@ -33,31 +32,63 @@ class ReportCliOutput implements ReportOutputInterface
 
         $this->display($rows);
     }
-    
+
     public function error(Throwable $throwable): void
     {
-        error($throwable->getMessage());
+        error($throwable);
     }
 
     private function sort(Collection $rows): Collection
     {
-        return $rows->sortByDesc($this->sort);
+        $sorts = $this->options->getSorts();
+
+        $rows = $rows->sortBy($sorts);
+
+        return $rows;
     }
 
     private function cut(Collection $rows): Collection
     {
-        if ($this->folder) {
-            $rows = $this->cuttingFolder($rows);
-        }
+        $rows = $this->cuttingFolder($rows);
 
-        return $rows->take($this->limit);
+        $rows = $this->cuttingThresholds($rows);
+
+        return $rows->take($this->options->getLimit());
     }
 
     private function cuttingFolder(Collection $rows): Collection
     {
-        return $rows->filter(function ($row) {
-            return str_starts_with($row['name'], $this->folder);
+        $rows = $rows->filter(function ($row) {
+
+            if ($folder = $this->options->getFolder()) {
+                return str_starts_with($row['name'], $folder);
+            }
+
+            return true;
         });
+
+        return $rows;
+    }
+
+    private function cuttingThresholds(Collection $rows): Collection
+    {
+        $rows = $rows->filter(function ($row) {
+
+            $thresholds = $this->options->getThresholds();
+
+            foreach ($thresholds as $threshold) {
+
+                [$key, $value] = $threshold;
+
+                if ($row[$key] < $value) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
+        return $rows;
     }
 
     private function display(Collection $rows): void
@@ -69,9 +100,9 @@ class ReportCliOutput implements ReportOutputInterface
                 'comm.',
                 'cont.',
                 'acs',
-                'acsr',
+                'acsr%',
                 'wpc',
-                'wpcr',
+                'wpcr%',
             ],
             $rows,
         );

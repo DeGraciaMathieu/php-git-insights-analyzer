@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Report;
+namespace App\Presenter\Commands\Report\Cli;
 
 use App\Application\Report\ReportRequestInterface;
 

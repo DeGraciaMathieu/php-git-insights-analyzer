@@ -4,8 +4,9 @@ namespace App\Presenter\Commands\Report;
 
 use App\Application\Report\ReportHandler;
 use LaravelZero\Framework\Commands\Command;
-use App\Application\Report\ReportCliRequest;
-use App\Presenter\Commands\Report\ReportCliOutput;
+use App\Presenter\Commands\Report\Cli\ReportCliOutput;
+use App\Presenter\Commands\Report\Cli\ReportCliRequest;
+use App\Presenter\Commands\Report\Cli\ReportClipOutputOptions;
 
 class ReportCommand extends Command
 {
@@ -17,7 +18,8 @@ class ReportCommand extends Command
     protected $signature = 'app:report 
         {--folder=} 
         {--limit=10} 
-        {--sort=totalCommits}
+        {--sorts=*}
+        {--thresholds=*}
     ';
 
     /**
@@ -32,29 +34,16 @@ class ReportCommand extends Command
      */
     public function handle(ReportHandler $reportHandler): void
     {
+        $options = new ReportClipOutputOptions(
+            folder: $this->option('folder'),
+            limit: $this->option('limit'),
+            sorts: $this->option('sorts'),
+            thresholds: $this->option('thresholds'),
+        );
+
         $reportHandler->handle(
             new ReportCliRequest(),
-            new ReportCliOutput(
-                folder: $this->option('folder'),
-                limit: $this->option('limit'),
-                sort: $this->getSortingKey(),
-            ),
+            new ReportCliOutput($options),
         );
-    }
-
-    private function getSortingKey(): string
-    {
-        $sort = $this->option('sort');
-
-        return match ($sort) {
-            'lines' => 'totalLines',
-            'commits' => 'totalCommits',
-            'contributors' => 'totalContributors',
-            'acs' => 'averageCommitSize',
-            'acsr' => 'averageCommitSizeRatio',
-            'wpc' => 'workloadPerContributor',
-            'wpcr' => 'workloadPerContributorRatio',
-            default => 'totalCommits',
-        };
     }
 }

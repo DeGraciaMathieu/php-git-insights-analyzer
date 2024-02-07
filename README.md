@@ -4,9 +4,6 @@
 
 # php-git-insights-analyzer
 
-> [!TIP]  
-> Other analysis [tools](https://github.com/DeGraciaMathieu) are available.
-
 ## Phar
 This tool is distributed as a [PHP Archive (PHAR)](https://www.php.net/phar):
 
@@ -96,3 +93,6 @@ File with more than 10 commits and a renewal ratio of 10% with each commit.
 ```
 php php-git-insights-analyzer app:report --limit=10 --thresholds=acsr,10 --thresholds=commits,10
 ```
+
+> [!TIP]  
+> Other analysis [tools](https://github.com/DeGraciaMathieu) are available.

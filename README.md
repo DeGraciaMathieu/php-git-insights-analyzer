@@ -72,7 +72,7 @@ Understanding analysis :
 | --folder=             | Filter results by folder (e.g., --folder=Http/Controllers).|
 | --limit=              | Specify the maximum number of results to display (default is 10).|
 | --sorts=               | Sets the sorting order for results. The first value (lines, commits, contributors, acs, acsr, wpc, wpcr) corresponds to the affected field, and the second value (desc,asc; default desc) determines the sorting order.|
-| --thresholds=         | Sets a threshold for the specified metric (lines, commits, contributors, acs, acsr, wpc, wpcr) to filter results. The first value (lines, commits, contributors, acs, acsr, wpc, wpcr) corresponds to the affected metric, and the second value (e.g., 60) represents the minimum value required to apply the threshold.|
+| --thresholds=         | Sets a threshold for the specified metric to filter results. The first value (lines, commits, contributors, acs, acsr, wpc, wpcr) corresponds to the affected metric, and the second value (e.g., 60) represents the minimum value required to apply the threshold.|
 
 ## Examples
 

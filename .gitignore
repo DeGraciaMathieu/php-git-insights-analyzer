@@ -5,3 +5,5 @@
 .phpunit.result.cache
 
 storage/app/analyse.json
+
+analyse.json

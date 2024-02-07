@@ -7,6 +7,17 @@
 > [!TIP]  
 > Other analysis [tools](https://github.com/DeGraciaMathieu) are available.
 
+## Phar
+This tool is distributed as a [PHP Archive (PHAR)](https://www.php.net/phar):
+
+```
+wget https://github.com/DeGraciaMathieu/php-git-insights-analyzer/raw/master/builds/php-git-insights-analyzer
+```
+
+```
+php php-git-insights-analyzer --version
+```
+
 ## Usage
 
 First, you need to load the data required for the analysis :
@@ -17,7 +28,7 @@ php php-git-insights-analyzer app:load
 
 Package uses git commands to retrieve files history, which is relatively time-consuming, so it was more efficient to create a database before carrying out the analyses.
 
-> For information, database is stored in the storage/analyse.json
+> For information, database is stored in the analyse.json
 
 Then analyse the data using the following command :
 

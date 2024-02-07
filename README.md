@@ -4,8 +4,8 @@
 
 # php-git-insights-analyzer
 
-> [!IMPORTANT]  
-> This package is currently under development and is an attempt to apply Clean Architecture. Some of its analyses are still experimental.
+> [!TIP]  
+> Other analysis [tools](https://github.com/DeGraciaMathieu) are available.
 
 ## Usage
 
@@ -63,4 +63,25 @@ Understanding analysis :
 |-----------------------|-------------|
 | --folder=             | Filter results by folder (e.g., --folder=Http/Controllers).|
 | --limit=              | Specify the maximum number of results to display (default is 10).|
-| --sort=smell          | Set the sort order (lines, commits, contributors, acs, acsr, wpc, wpcr; default is commits).|
+| --sort=               | Sets the sorting order for results. The first value (lines, commits, contributors, acs, acsr, wpc, wpcr) corresponds to the affected field, and the second value (desc,asc; default desc) determines the sorting order.|
+| --thresholds=         | Sets a threshold for the specified metric (lines, commits, contributors, acs, acsr, wpc, wpcr) to filter results. The first value (lines, commits, contributors, acs, acsr, wpc, wpcr) corresponds to the affected metric, and the second value (e.g., 60) represents the minimum value required to apply the threshold.|
+
+## Examples
+
+Files with more than 300 lines and low contributor diversity :
+
+```
+php php-git-insights-analyzer app:report --limit=10 --thresholds=wpcr,60 --thresholds=lines,300
+```
+
+Files with more than 10 commits and low contributor diversity :
+
+```
+php php-git-insights-analyzer app:report --limit=10 --thresholds=wpcr,60 --thresholds=commits,10
+```
+
+File with more than 10 commits and a renewal ratio of 10% with each commit.
+
+```
+php php-git-insights-analyzer app:report --limit=10 --thresholds=acsr,10 --thresholds=commits,10
+```

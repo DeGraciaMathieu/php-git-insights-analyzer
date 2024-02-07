@@ -35,7 +35,9 @@ class ReportCliOutput implements ReportOutputInterface
 
     public function error(Throwable $throwable): void
     {
-        error($throwable);
+        error($throwable->getMessage());
+
+        error('Maybe run app:load again ?');
     }
 
     private function sort(Collection $rows): Collection

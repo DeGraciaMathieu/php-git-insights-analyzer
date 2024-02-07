@@ -2,7 +2,6 @@
 
 namespace App\Domain\Entities;
 
-use App\Domain\Entities\Path;
 use App\Domain\Entities\Analysis;
 
 class ReportLine

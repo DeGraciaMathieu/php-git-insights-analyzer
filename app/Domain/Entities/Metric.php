@@ -4,7 +4,7 @@ namespace App\Domain\Entities;
 
 class Metric
 {
-    public int|null $value;
+    public int $value;
 
     public function __construct(int|string|null $value = 0) 
     {
@@ -12,6 +12,6 @@ class Metric
             $value = trim($value);
         }
 
-        $this->value = $value;
+        $this->value = $value ?: 1;
     }
 }

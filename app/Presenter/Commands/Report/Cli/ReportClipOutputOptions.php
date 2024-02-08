@@ -5,7 +5,7 @@ namespace App\Presenter\Commands\Report\Cli;
 class ReportClipOutputOptions
 {
     use Concerns\Sorts;
-    use Concerns\thresholds;
+    use Concerns\Thresholds;
 
     public function __construct(
         private string|null $folder,
